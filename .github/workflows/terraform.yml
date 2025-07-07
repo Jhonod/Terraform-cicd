@@ -8,7 +8,7 @@ on:
 env:
   PROJECT_ID: arboreal-cosmos-440011-r8
   REGION: asia-southeast2
-  REPOSITORY_AKM: warung-kopi
+  REPOSITORY_ID: warung-kopi
   IMAGE_NAME: test-akmal-app
  
 
@@ -42,15 +42,15 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_AKM}/${IMAGE_NAME}:latest .
+        docker build -t ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_ID}/${IMAGE_NAME}:latest .
 
     - name: Push Docker Image to Artifact Registry
       run: |
-        docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_AKM}/${IMAGE_NAME}:latest
+        docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_ID}/${IMAGE_NAME}:latest
     - name: Deploy to Cloud Run
       run: |
           DEPLOY_OUTPUT=$(gcloud run deploy warung-kopi  \
-            --image "$REPOSITORY_AKM/test-akmal-app:latest" \
+            --image "$REPOSITORY_ID/test-akmal-app:latest" \
             --platform managed \
             --region asia-southeast2 \
             --port 8080 \
