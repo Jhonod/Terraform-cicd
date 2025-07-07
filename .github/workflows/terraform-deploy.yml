@@ -31,11 +31,6 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    - name: Import Artifact Registry (if exists)
-      run: |
-        terraform import google_artifact_registry_repository.registry \
-          projects/${PROJECT_ID}/locations/${REGION}/repositories/${REPOSITORY_ID} || true
-
     - name: Terraform Plan & Apply
       run: |
         terraform plan
@@ -55,7 +50,7 @@ jobs:
     - name: Deploy to Cloud Run
       run: |
           DEPLOY_OUTPUT=$(gcloud run deploy gcp-hellowow  \
-            --image "$REPOSITORY_ID/penampung_gambar_container:latest" \
+            --image "$REPOSITORY_ID/test-akmal-app:latest" \
             --platform managed \
             --region asia-southeast2 \
             --port 8080 \
