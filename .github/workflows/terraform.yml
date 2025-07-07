@@ -39,11 +39,6 @@ jobs:
     - name: Configure Docker to use Artifact Registry
       run: |
         gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
-    
-    - name: Import Artifact Registry (if exists)
-      run: |
-        terraform import google_artifact_registry_repository.registry \
-          projects/${PROJECT_ID}/locations/${REGION}/repositories/${REPOSITORY_ID}/${IMAGE_NAME}:latest .
 
     - name: Build Docker Image
       run: |
