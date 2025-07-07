@@ -8,7 +8,7 @@ on:
 env:
   PROJECT_ID: arboreal-cosmos-440011-r8
   REGION: asia-southeast2
-  REPOSITORY_ID: warkop
+  REPOSITORY_ID: warung-kopi
   IMAGE_NAME: test-akmal-app
  
 
@@ -48,8 +48,11 @@ jobs:
       run: |
         docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_ID}/${IMAGE_NAME}:latest
     - name: Deploy to Cloud Run
+      env:  
+       REPOSITORY_ID: asia-southeast2-docker.pkg.dev/${{ env.PROJECT_ID }}/test-akmal-app
+
       run: |
-          DEPLOY_OUTPUT=$(gcloud run deploy warkop  \
+          DEPLOY_OUTPUT=$(gcloud run deploy warung-kopi  \
             --image "$REPOSITORY_ID/test-akmal-app:latest" \
             --platform managed \
             --region asia-southeast2 \
