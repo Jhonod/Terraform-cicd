@@ -10,7 +10,6 @@ env:
   REGION: asia-southeast2
   REPOSITORY_ID: warung-kopi
   IMAGE_NAME: test-akmal-app
-  SERVICE_URL: https://warung-kopi-744240945004.asia-southeast2.run.app
   STATUS : berhasil
   SERVICE_NAME: warung-kopi
 jobs:
@@ -73,17 +72,20 @@ jobs:
           --project ${PROJECT_ID} \
           --format='value(status.url)')
 
-        echo "Waiting for service to be available at $SERVICE_URL..."
+        echo "🔍 Checking availability of $SERVICE_URL"
 
-        for i in {1..10}; do
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SERVICE_URL")
-          echo "Attempt $i: Status code = $STATUS"
-          if [[ "$STATUS" == "200" ]]; then
-            echo "✅ Application is reachable and returned HTTP 200."
-            exit 0
-          fi
-          sleep 5
-        done
+        check_http_200() {
+          for i in {1..10}; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$1")
+            echo "Attempt $i: HTTP status = $STATUS"
+            if [[ "$STATUS" == "200" ]]; then
+              echo "✅ $1 returned HTTP 200"
+              return 0
+            fi
+            sleep 5
+          done
+          echo "❌ $1 did not return HTTP 200 after multiple attempts"
+          return 1
+        }
 
-        echo "❌ Application did not return HTTP 200 after multiple attempts."
-        exit 1
+        check_http_200 "$SERVICE_URL"
