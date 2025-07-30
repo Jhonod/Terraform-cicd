@@ -1,0 +1,43 @@
+name: Terraform Destroy (Manual & Protected)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_destroy:
+        description: "Ketik YES untuk mengkonfirmasi penghancuran resource"
+        required: true
+        default: "NO"
+
+env:
+  PROJECT_ID: arboreal-cosmos-440011-r8
+  REGION: asia-southeast2
+
+jobs:
+  destroy:
+    if: github.actor == 'Jhonod'  # hanya user ini yang boleh trigger
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Validasi input konfirmasi
+      run: |
+        if [ "${{ github.event.inputs.confirm_destroy }}" != "YES" ]; then
+          echo "❌ Destroy dibatalkan. Anda harus mengetik 'YES'."
+          exit 1
+        fi
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve
