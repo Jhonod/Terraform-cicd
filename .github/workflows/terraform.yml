@@ -10,8 +10,9 @@ env:
   REGION: asia-southeast2
   REPOSITORY_ID: warung-kopi
   IMAGE_NAME: test-akmal-app
- 
-
+  SERVICE_URL: https://warung-kopi-744240945004.asia-southeast2.run.app
+  STATUS : berhasil
+  SERVICE_NAME: warung-kopi
 jobs:
   build:
     runs-on: ubuntu-latest
