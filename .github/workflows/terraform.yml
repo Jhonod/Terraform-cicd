@@ -63,3 +63,26 @@ jobs:
             --allow-unauthenticated \
             --project ${{ env.PROJECT_ID  }} \
             --format=json)
+
+    - name: Verify HTTP 200 from Cloud Run
+      run: |
+        SERVICE_URL=$(gcloud run services describe ${SERVICE_NAME} \
+          --platform managed \
+          --region ${REGION} \
+          --project ${PROJECT_ID} \
+          --format='value(status.url)')
+
+        echo "Waiting for service to be available at $SERVICE_URL..."
+
+        for i in {1..10}; do
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SERVICE_URL")
+          echo "Attempt $i: Status code = $STATUS"
+          if [[ "$STATUS" == "200" ]]; then
+            echo "✅ Application is reachable and returned HTTP 200."
+            exit 0
+          fi
+          sleep 5
+        done
+
+        echo "❌ Application did not return HTTP 200 after multiple attempts."
+        exit 1
