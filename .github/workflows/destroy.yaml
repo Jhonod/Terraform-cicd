@@ -35,18 +35,15 @@ jobs:
       uses: google-github-actions/auth@v2
       with:
         credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
-        
+
     - name: Delete Docker Images (to allow registry deletion)
       run: |
         gcloud artifacts docker images delete \
-          "${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_ID}/${IMAGE_NAME}" \
+          "${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_ID}/${IMAGE_NAME}:latest" \
           --quiet --delete-tags --project="${PROJECT_ID}" || true
 
     - name: Terraform Init
       run: terraform init
     
-    - name: Terraform Plan - Destroy Preview
-      run: terraform plan -destroy
-
     - name: Terraform Destroy
       run: terraform destroy -auto-approve
