@@ -9,7 +9,7 @@ env:
   PROJECT_ID: arboreal-cosmos-440011-r8
   REGION: asia-southeast2
   REPOSITORY_ID: warung-kopi-dua
-  IMAGE_NAME: test-app-akm
+  IMAGE_NAME: akmal-app
   STATUS : berhasil
   SERVICE_NAME: warung-kopi-saja
 jobs:
