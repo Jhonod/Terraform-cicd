@@ -49,11 +49,11 @@ jobs:
         docker push ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_ID}/${IMAGE_NAME}:latest
     - name: Deploy to Cloud Run
       env:  
-       REPOSITORY_ID: asia-southeast2-docker.pkg.dev/${{ env.PROJECT_ID }}/warung-kopi
+       REPOSITORY_ID: asia-southeast2-docker.pkg.dev/${{ env.PROJECT_ID }}/warung-kopi-dua
 
       run: |
-          DEPLOY_OUTPUT=$(gcloud run deploy warung-kopi  \
-            --image "$REPOSITORY_ID/test-akmal-app:latest" \
+          DEPLOY_OUTPUT=$(gcloud run deploy warung-kopi-saja  \
+            --image "$REPOSITORY_ID/akmal-app:latest" \
             --platform managed \
             --region asia-southeast2 \
             --port 8080 \
