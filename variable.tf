@@ -12,3 +12,8 @@ variable "format" {
   type    = string
   default = "DOCKER"
 }
+variable "image_name" {
+  type = string
+
+  
+}
