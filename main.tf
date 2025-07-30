@@ -8,8 +8,6 @@ resource "google_artifact_registry_repository" "registry" {
   repository_id = var.repository_id
   format        = var.format
 
-  description   = "Artifact Registry via Terraform CI/CD"
-
   docker_config {
     immutable_tags = false
   }
