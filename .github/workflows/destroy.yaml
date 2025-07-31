@@ -48,7 +48,7 @@ jobs:
     
     - name: Terraform Destroy (Auto-approve)
       run: terraform destroy -auto-approve \
-       -var="project_id=${{ env.PROJECT_ID }}" \
-       -var="region=${{ env.REGION }}" \
-       -var="repository_id=${{ env.REPOSITORY_ID }}" \
-       -var="image_name=${{ env.IMAGE_NAME }}"
+       -var="project_id"
+       -var="region"
+       -var="repository_id"
+       -var="image_name"
