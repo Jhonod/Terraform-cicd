@@ -21,7 +21,7 @@ resource "google_cloud_run_service" "app" {
   template {
     spec {
       containers {
-        image = "${var.region}-docker.pkg.dev/${var.project_id}/${var.repository_id}/${var.image_name}:latest"
+        image = "${var.region}-docker.pkg.dev/${var.project_id}/${var.repository_id}"
         ports {
           container_port = 8080
         }
