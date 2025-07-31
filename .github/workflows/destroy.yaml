@@ -47,4 +47,4 @@ jobs:
       run: terraform init
     
     - name: Terraform Destroy (Auto-approve)
-      run: terraform destroy -var="project_id=arboreal-cosmos-440011-r8"
+      run: terraform destroy -auto-approve \
