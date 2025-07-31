@@ -37,9 +37,11 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
 
-    - name: Delete Docker Images (to allow registry deletion)
+    - name: Delete repository (to allow registry deletion)
       run: |
-        gcloud artifacts repositories delete warung-kopi-dua --location=asia-southeast2
+        gcloud artifacts repositories delete warung-kopi-dua \
+        --location=asia-southeast2 \
+        --quiet
 
     - name: Terraform Init
       run: terraform init
