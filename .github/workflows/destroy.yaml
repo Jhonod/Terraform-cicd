@@ -40,7 +40,7 @@ jobs:
     - name: Delete Docker Images (to allow registry deletion)
       run: |
         gcloud artifacts docker images delete \
-          "${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_ID}/${IMAGE_NAME} \
+          "${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_ID}/${IMAGE_NAME}:latest" \
           --quiet --delete-tags --project="${PROJECT_ID}" || true
 
     - name: Terraform Init
