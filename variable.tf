@@ -12,3 +12,7 @@ variable "format" {
   type    = string
   default = "DOCKER"
 }
+variable "image_name" {
+  description = "test-akmal-app"
+  type        = string
+}

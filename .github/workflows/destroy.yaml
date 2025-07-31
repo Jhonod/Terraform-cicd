@@ -46,5 +46,9 @@ jobs:
     - name: Terraform Init
       run: terraform init
     
-    - name: Terraform Destroy
-      run: terraform destroy -var="project_id=arboreal-cosmos-440011-r8"
+    - name: Terraform Destroy (Auto-approve)
+      run: terraform destroy -auto-approve \
+         -var="project_id=${{ env.PROJECT_ID }}" \
+         -var="region=${{ env.REGION }}" \
+         -var="repository_id=${{ env.REPOSITORY_ID }}" \
+         -var="image_name=${{ env.IMAGE_NAME }}"
