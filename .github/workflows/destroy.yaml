@@ -47,8 +47,4 @@ jobs:
       run: terraform init
     
     - name: Terraform Destroy (Auto-approve)
-      run: terraform destroy -auto-approve \
-       -var="project_id"
-       -var="region"
-       -var="repository_id"
-       -var="image_name"
+      run: terraform destroy -var="image_name=test-akmal-app"
