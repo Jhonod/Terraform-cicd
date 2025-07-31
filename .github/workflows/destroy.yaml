@@ -39,9 +39,7 @@ jobs:
 
     - name: Delete Docker Images (to allow registry deletion)
       run: |
-        gcloud artifacts repositories delete warung-kopi-dua \
-          "${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY_ID}/${IMAGE_NAME}" \
-          --quiet --delete-tags --project="${PROJECT_ID}" || true
+        gcloud artifacts repositories delete warung-kopi-dua --location=asia-southeast2
 
     - name: Terraform Init
       run: terraform init
