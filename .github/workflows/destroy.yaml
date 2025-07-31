@@ -12,7 +12,7 @@ env:
   PROJECT_ID: arboreal-cosmos-440011-r8
   REGION: asia-southeast2
   REPOSITORY_ID: warung-kopi
-  IMAGE_NAME: test-akmal=app
+  IMAGE_NAME: test-akmal-app
 jobs:
   destroy:
     if: github.actor == 'Jhonod'  # hanya user ini yang boleh trigger
